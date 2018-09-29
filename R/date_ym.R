@@ -11,8 +11,8 @@
 #'
 #' @return `date_ym` returns an object of type `date_ym`
 #' @export
-#' @family simple dates
-#' @seealso [format.date_ym()]
+#' @family date_xx subclasses
+#' @seealso [format.date_ym()], [seq.date_ym()], [date_xx_arithmetic()]
 #'
 #' @examples
 #' date_ym(2013, 12)
@@ -46,7 +46,7 @@ is_date_ym <- function(x){
 
 
 
-#' @return `as_date_ym` attempts to coerce its argument to `date_ym` type
+#' @return `as_date_ym` attempts to coerce its argument to `date_ym`
 #' @export
 #' @rdname date_ym
 #'
@@ -107,190 +107,6 @@ as.Date.date_ym <- function(x, ...){
     get_month(x),
     1L
   )
-}
-
-
-
-
-# format ------------------------------------------------------------------
-
-#' Format a date_ym Object
-#'
-#' @param x a [date_ym] object
-#' @param format A scalar character, valid values are: `"iso"`, `"short"`, and
-#'   `"shorter"`
-#' @param ... ignored
-#'
-#' @return A character vector
-#'
-#' @export
-#' @examples
-#'
-#' x <- date_ym(2015, 12)
-#'
-#' format(x, format = "iso")
-#' # [1] "2015-M12"
-#'
-#' format(x, format = "short")
-#' # [1] "2015.12"
-#'
-#' format(x, format = "shorter")
-#' # [1] "15.12"
-#'
-format.date_ym <- function(
-  x,
-  format = "iso",
-  ...
-){
-  switch(
-    tolower(format),
-    "iso"     = format_date_ym_iso(x),
-    "short"   = format_date_ym_short(x),
-    "shorter" = format_date_ym_shorter(x),
-    stop("wrong format specified")
-  )
-}
-
-
-
-
-#' @rdname format.date_ym
-#' @export
-format_date_ym_iso <- function(x){
-  d <- yms_matrix_from_numeric(as_date_ym(x))
-  sprintf("%s-M%02i", d[, 1] * d[, 3], d[, 2])
-}
-
-
-
-
-#' @rdname format.date_ym
-#' @export
-format_date_ym_short <- function(x){
-  d <- yms_matrix_from_numeric(as_date_ym(x))
-  sprintf("%s.%02i", d[, 1] * d[, 3], d[, 2])
-}
-
-
-
-
-#' @rdname format.date_ym
-#' @export
-format_date_ym_shorter <- function(x){
-  d <- yms_matrix_from_numeric(as_date_ym(x))
-  y <- substr_right(d[, 1], 2)  # substr so we dont want to loose leading zeroes
-  y <- ifelse(d[, 3] < 0, paste0("-", y), y)
-  sprintf("%s.%02i", y, d[, 2])
-}
-
-
-
-
-# algebra -----------------------------------------------------------------
-
-#' @rdname date_xx_arithmetic
-#' @export
-`+.date_ym` <- function(x, y){
-  increment(x, as.integer(y))
-}
-
-
-
-
-#' @rdname date_xx_arithmetic
-#' @export
-`-.date_ym` <- function(x, y){
-  increment(x, as.integer(-y))
-}
-
-
-
-
-#' @rdname date_xx_arithmetic
-#' @export
-`*.date_ym` <- function(x, y){
-  stop("Operation not supported")
-}
-
-
-
-
-#' @rdname date_xx_arithmetic
-#' @export
-`/.date_ym` <- function(x, y){
-  stop("Operation not supported")
-}
-
-
-
-
-#' @rdname date_xx_arithmetic
-#' @export
-`^.date_ym` <- function(x, y){
-  stop("Operation not supported")
-}
-
-
-
-
-#' @rdname date_xx_arithmetic
-#' @export
-`%%.date_ym` <- function(x, y){
-  stop("Operation not supported")
-}
-
-
-
-
-#' @rdname date_xx_arithmetic
-#' @export
-`%/%.date_ym` <- function(x, y){
-  stop("Operation not supported")
-}
-
-
-
-
-#' @rdname date_xx_arithmetic
-#' @export
-seq.date_ym <- function(x, y, ...){
-  res <- seq.int(as.integer(x), as.integer(y))
-  as_date_ym(res[(res %% 100) %in% 1:12])
-}
-
-
-
-
-# shortcuts ---------------------------------------------------------------
-
-#' Directly Create Formatted Year-Month Strings
-#'
-#' @param x,m Two integer (vectors). `m` is optional and the interpretation of
-#'   `x` will depend on whether `m` is supplied or not:
-#'   * if only `x` is supplied, `x` will be passed to [as_date_ym()]
-#'     (e.g. `x = 201604` means April 2016)
-#'   * if `x` and `m` are supplied, `x` is interpreted as year and `m` as
-#'     month.
-#'
-#' @inherit format.date_ym
-#'
-#' @family ym convenience functions
-#' @seealso [format.date_ym()]
-#' @export
-#' @examples
-#'
-#' format_ym(2015, 5)
-#' format_ym(201505, format = "short")
-#' format_ym(201505, format = "shorter")
-#'
-format_ym <- function(x, m = NULL, format = "iso"){
-  if (is.null(m)){
-    d <- as_date_ym(x)
-  } else {
-    d <- date_ym(x, m)
-  }
-
-  format(d, format = format)
 }
 
 

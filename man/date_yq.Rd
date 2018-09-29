@@ -25,12 +25,12 @@ as_date_yq(x)
 \code{is_date_yq} returns \code{TRUE} or \code{FALSE}  depending on whether its
 argument is of type \code{date_yq} or not.
 
-\code{as_date_yq} attempts to coerce its argument to \code{date_yq} type
+\code{as_date_yq} attempts to coerce its argument to \code{date_yq}
 }
 \description{
 A simple data type for storing year-quarter dates in a human readable integer
-format, e.g.: 3.Quarter of 2012 is stored as 20123. Supports simple arithmetics
-(\code{+} and \code{-}) as well formatting.
+format, e.g.: 3.Quarter of 2012 is stored as 20123. Supports simple
+arithmetic operations such as \code{+} and \code{-} as well formatting.
 }
 \examples{
 date_yq(2013, 3)
@@ -39,9 +39,9 @@ as_date_yq(20161)
 
 }
 \seealso{
-\code{\link[=format.date_ym]{format.date_ym()}}
+\code{\link[=format.date_yq]{format.date_yq()}}, \code{\link[=seq.date_yq]{seq.date_yq()}}, \code{\link[=date_xx_arithmetic]{date_xx_arithmetic()}}
 
-Other simple dates: \code{\link{date_ym}},
-  \code{\link{date_y}}
+Other date_xx subclasses: \code{\link{date_ym}},
+  \code{\link{date_yw}}
 }
-\concept{simple dates}
+\concept{date_xx subclasses}

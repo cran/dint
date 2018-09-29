@@ -43,28 +43,9 @@ test_that("as_date_yq works", {
 
 
 
-test_that("format.date_yq works as expected", {
-  tdat <- as_date_yq(c(-104, -11, 1, 12, 103, 1004, 20001, 212342))
-
-  expect_identical(
-    format(tdat),
-    c("-10-Q4", "-1-Q1", "0-Q1", "1-Q2", "10-Q3", "100-Q4", "2000-Q1",
-      "21234-Q2")
-  )
-
-  expect_identical(
-    format(tdat, "short"),
-    c("-10.4", "-1.1", "0.1", "1.2", "10.3", "100.4", "2000.1", "21234.2")
-  )
-
-  expect_identical(
-    format(tdat, "shorter"),
-    c("-10.4", "-1.1", "0.1", "1.2", "10.3", "00.4", "00.1", "34.2")
-  )
-})
 
 
-test_that("as_date_yq arithmetics works", {
+test_that("as_date_yq arithmetic works", {
   #* @testing increment.date_yq
   tdat <- (as_date_yq(c(-11, -12, -13, -14, 1, 2, 3, 4)))
 
@@ -88,6 +69,16 @@ test_that("as_date_yq arithmetics works", {
     as_date_yq(c(-34, -21, -22, -23, -24, -11, -12, -13))
   )
 
+
+  expect_identical(
+    date_yq(2017, 1) %y+% 1,
+    date_yq(2018, 1)
+  )
+
+  expect_identical(
+    date_yq(2017, 1) %y-% 1,
+    date_yq(2016, 1)
+  )
 })
 
 

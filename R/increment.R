@@ -13,7 +13,6 @@ increment <- function(x, inc = 1){
 
 
 
-#' @noRd
 increment.date_yq <- function(x, inc){
   d <- yqs_matrix_from_numeric(x)
   d[, 2] <- d[, 2] + inc
@@ -35,7 +34,6 @@ increment.date_yq <- function(x, inc){
 
 
 
-#' @noRd
 increment.date_ym <- function(x, inc){
   d <- yms_matrix_from_numeric(x)
   d[, 2] <- d[, 2] + inc
@@ -52,4 +50,19 @@ increment.date_ym <- function(x, inc){
 
 
   date_ym(d[, 1] * d[, 3], d[, 2])
+}
+
+
+
+
+increment.date_yw <- function(x, inc){
+  x <- first_of_isoweek(x)
+  as_date_yw(x + 7L * inc)
+}
+
+
+
+
+increment.date_y <- function(x, inc){
+  date_y(as.integer(x) + inc)
 }

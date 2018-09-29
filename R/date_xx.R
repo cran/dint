@@ -3,7 +3,7 @@
 #' A Superclass For All dint Objects
 #'
 #' @description
-#' Superclass for `date_xx` for [date_ym], [date_yq] and [date_y].
+#' Superclass for [date_yq], [date_ym], [date_yw], and [date_y].
 #'
 #' `make_date_xx` can be used to create such objects when it is not know if
 #' month or quarter information is available.
@@ -90,10 +90,9 @@ print.date_xx <- function(
   x,
   ...
 ){
-  cat(format(x, ...))
+  print(format(x, ...))
   invisible(x)
 }
-
 
 
 
@@ -146,5 +145,93 @@ as.POSIXlt.date_xx <- function(x, tz = "", ...){
 #' @export
 as.POSIXct.date_xx <- function(x, tz = "", ...){
   as.POSIXct(as.Date(x, tz = tz), tz = tz, ...)
-
 }
+
+
+
+
+Sys.date_yq <- function() as_date_yq(Sys.Date())
+Sys.date_ym <- function() as_date_ym(Sys.Date())
+Sys.date_yw <- function() as_date_yw(Sys.Date())
+
+
+
+
+# common generics ---------------------------------------------------------
+
+#' Concatenate date_xx Objects
+#'
+#' @param ... `date_yq`, `date_ym`, `date_yw` or `date_y` vectors. All inputs
+#'   must be of the same type (or its unclassed integer equivalent) or faulty
+#'   output is to be expected
+#'
+#' @return a vector of the same `date_xx` subclass as the first element of `...`
+#' @export
+#'
+#' @examples
+#'
+#' c(date_yq(2000, 1:2), date_yq(2000, 3:3))
+#'
+#' # raises an error
+#' try(c(date_yq(2000, 1:2), date_ym(2000, 1:12)))
+#'
+c.date_xx <- function(...){
+  dots <- list(...)
+  assert(
+    all(vapply(dots, is.atomic, logical(1))),
+    "All inputs to c.date_xx() must be atomic vectors (i.e. no lists)"
+  )
+  assert(
+    all_are_identical(vapply(dots, which_date_xx, character(1))),
+    "All inputs to c.date_xx() must be of the same <date_xx> subclass"
+  )
+
+  res  <- unlist(dots)
+
+  if (is_date_yq(..1))
+    as_date_yq(res)
+  else if (is_date_ym(..1))
+    as_date_ym(res)
+  else if (is_date_yw(..1))
+    as_date_yw(res)
+  else if (is_date_y(..1))
+    as_date_y(res)
+}
+
+
+
+
+unique.date_yw <- function(x, incomparables = FALSE, ...) {
+  as_date_yw(unique.default(x, incomparables = incomparables, ...))
+}
+
+
+
+unique.date_ym <- function(x, incomparables = FALSE, ...) {
+  as_date_ym(unique.default(x, incomparables = incomparables, ...))
+}
+
+
+
+
+unique.date_yq <- function(x, incomparables = FALSE, ...) {
+  as_date_yq(unique.default(x, incomparables = incomparables, ...))
+}
+
+
+
+
+unique.date_y <- function(x, incomparables = FALSE, ...) {
+  as_date_y(unique.default(x, incomparables = incomparables, ...))
+}
+
+
+
+
+summary.date_xx <- function(object, ...){
+  summary(as.numeric(object), ...)
+}
+
+
+
+xtfrm.date_xx <- function(x) as.numeric(x)

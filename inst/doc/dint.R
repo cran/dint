@@ -12,13 +12,13 @@ library(dint)
 # date_* Objects can be created using explicit constructors...
 date_yq(2015, 1)
 date_ym(c(2015, 2016), c(1, 2))
-
+date_yw(c(2008, 2009), 1)
 
 # ...or through coercion of dates or integers
 as_date_yq(Sys.Date())
 as_date_yq(20141)   # the last digit is interpreted as quarter
 as_date_ym(201412)  # the last two digits are interpreted as month
-
+as_date_yw("2018-01-01")  # anything else that can be parsed by as.Date() works
 
 
 ## ------------------------------------------------------------------------
@@ -27,6 +27,7 @@ as_date_ym(201412)  # the last two digits are interpreted as month
 d <- as.Date("2018-05-12")
 as_date_yq(d)
 as_date_ym(d)
+as_date_yw(d)
 as_date_y(d)
 
 
@@ -81,39 +82,46 @@ lubridate::month(q)
 
 ## ------------------------------------------------------------------------
 q <- date_yq(2015, 1)
-first_day_of_quarter(q)  # the same as as.Date(q), but more explicit
-last_day_of_quarter(q)  # the same as as.Date(q), but more explicit
+first_of_quarter(q)  # the same as as.Date(q), but more explicit
+last_of_quarter(q)  # the same as as.Date(q), but more explicit
 
 
 # These functions work with normal dates
 d <- as.Date("2018-05-12")
-first_day_of_quarter(d)
-last_day_of_quarter(d)
-first_day_of_month(d)
-last_day_of_month(d)
-first_day_of_year(d)
-last_day_of_year(d)
-
+first_of_year(d)
+last_of_year(d)
+first_of_quarter(d)
+last_of_quarter(d)
+first_of_month(d)
+last_of_month(d)
+first_of_isoweek(d)
+last_of_isoweek(d)
 
 # Alternativeley you can also use these:
-first_day_yq(2012, 2)
-last_day_ym(2012, 2)
-last_day_y(2012)
+first_of_yq(2012, 2)
+last_of_ym(2012, 2)
 
 
 ## ------------------------------------------------------------------------
 q <- date_yq(2014, 4)
-format(q, "iso")  # default
-format(q, "short")
-format(q, "shorter")
+format(q, "%Y-Q%q")  # iso/default
+format(q, "%Y.%q")
+format(q, "%y.%q")
 
 
 m <- date_ym(2014, 12)
-format(m, "iso")  # default
-format(m, "short")
-format(m, "shorter")
+format(m, "%Y-M%m")  # iso/default
 
-## ------------------------------------------------------------------------
+w <- date_yw(2014, 1)
+format(w, "%Y-W%W")  # iso/default
+
+
+# You can use these for coercion and formatting in one step
+format_yq(Sys.Date())
+format_ym(Sys.Date())
+format_yw(Sys.Date())
+
+## ---- collapse=TRUE, fig.show='hold'-------------------------------------
 library(ggplot2)
 
 x <- data.frame(
@@ -130,8 +138,9 @@ p <- ggplot(
   ) + geom_point()
 
 
-print(p)
-print(p + scale_x_date(labels = format_date_yq_iso))
-print(p + scale_x_date(labels = format_date_ym_short))
+p + ggtitle("iso") + ggtitle("default")
+p + scale_x_date(labels = format_yq_iso) + ggtitle("date_yq_iso")
+p + scale_x_date(labels = format_ym_short) + ggtitle("date_ym_short")
+p + scale_x_date(labels = format_yw_shorter) + ggtitle("date_yw_shorter")
 
 
