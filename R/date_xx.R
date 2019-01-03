@@ -96,6 +96,7 @@ print.date_xx <- function(
 
 
 
+
 # as.Date -----------------------------------------------------------------
 
 
@@ -149,9 +150,20 @@ as.POSIXct.date_xx <- function(x, tz = "", ...){
 
 
 
-
+#' @rdname as.Date.date_xx
+#' @export
 Sys.date_yq <- function() as_date_yq(Sys.Date())
+
+
+
+#' @rdname as.Date.date_xx
+#' @export
 Sys.date_ym <- function() as_date_ym(Sys.Date())
+
+
+
+#' @rdname as.Date.date_xx
+#' @export
 Sys.date_yw <- function() as_date_yw(Sys.Date())
 
 
@@ -201,12 +213,15 @@ c.date_xx <- function(...){
 
 
 
+#' @export
 unique.date_yw <- function(x, incomparables = FALSE, ...) {
   as_date_yw(unique.default(x, incomparables = incomparables, ...))
 }
 
 
 
+
+#' @export
 unique.date_ym <- function(x, incomparables = FALSE, ...) {
   as_date_ym(unique.default(x, incomparables = incomparables, ...))
 }
@@ -214,6 +229,7 @@ unique.date_ym <- function(x, incomparables = FALSE, ...) {
 
 
 
+#' @export
 unique.date_yq <- function(x, incomparables = FALSE, ...) {
   as_date_yq(unique.default(x, incomparables = incomparables, ...))
 }
@@ -221,6 +237,7 @@ unique.date_yq <- function(x, incomparables = FALSE, ...) {
 
 
 
+#' @export
 unique.date_y <- function(x, incomparables = FALSE, ...) {
   as_date_y(unique.default(x, incomparables = incomparables, ...))
 }
@@ -228,10 +245,15 @@ unique.date_y <- function(x, incomparables = FALSE, ...) {
 
 
 
+#' @export
 summary.date_xx <- function(object, ...){
   summary(as.numeric(object), ...)
 }
 
 
 
-xtfrm.date_xx <- function(x) as.numeric(x)
+
+#' @export
+xtfrm.date_xx <- function(x){
+  as.numeric(x)
+}

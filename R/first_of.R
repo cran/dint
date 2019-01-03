@@ -20,6 +20,14 @@ first_of_year <- function(x){
 
 
 
+#' @rdname day_of_year
+#' @export
+first_of_year.date_xx <- function(x){
+  first_of_year(get_year(x))
+}
+
+
+
 
 #' @rdname day_of_year
 #' @export
@@ -54,6 +62,13 @@ last_of_year <- function(x){
   UseMethod("last_of_year")
 }
 
+
+
+#' @rdname day_of_year
+#' @export
+last_of_year.date_xx <- function(x){
+  last_of_year(get_year(x))
+}
 
 
 
@@ -131,7 +146,7 @@ last_of_quarter <- function(x){
 #' @rdname day_of_quarter
 #' @export
 last_of_quarter.default <- function(x){
-  assert_lubridate()
+  assert_namespace("lubridate")
   lubridate::ceiling_date(as.Date(x), "quarter") - 1L
 }
 
@@ -200,7 +215,7 @@ last_of_month.default <- function(x){
 
 
 # isoweek -----------------------------------------------------------------
-
+#TODO: deal with 53/52 week years?
 
 
 

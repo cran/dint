@@ -1,21 +1,3 @@
-assert_lubridate <- function(x){
-  if (!require_lubridate())
-    stop(paste0(
-      "This function requires the package 'lubridate'.",
-      "You can install it via install.packages('lubridate')"
-    ))
-}
-
-
-
-
-require_lubridate <- function(x){
-  requireNamespace("lubridate", quietly = TRUE)
-}
-
-
-
-
 # imitatie behaviour of lubridate
 tz <- function(x){
   tzone <- attr(x, "tzone")[[1]]
@@ -31,10 +13,10 @@ tz <- function(x){
 
 # use the more efficient make_date function from lubridate if it is available
 make_date <- function(y, m, d){
-  if (require_lubridate()){
+  if (requireNamespace("lubridate", quietly = TRUE)){
     lubridate::make_date(y, m, d)
   } else {
-    as.Date(ISOdate(y, m, d))
+    as.Date(ISOdate(y, m, d))  # nocov
   }
 }
 
@@ -47,8 +29,7 @@ substr_right <- function(x, n){
 }
 
 
-
-
+# nocov start
 dyn_register_s3_method <- function(
   pkg,
   generic,
@@ -79,7 +60,7 @@ dyn_register_s3_method <- function(
     }
   )
 }
-
+# nocov end
 
 
 
@@ -89,28 +70,6 @@ ifelse_simple <- function(x, true, false){
   assert(identical(class(true), class(false)))
   false[x] <- true[x]
   false
-}
-
-
-
-
-deprecate <- function(
-  fun,
-  new = deparse(substitute(fun))
-){
-
-  function(...){
-    .Deprecated(new)
-    fun(...)
-  }
-
-}
-
-
-
-
-is_scalar_integer <- function(x){
-  is.integer(x) && is_scalar(x)
 }
 
 
@@ -136,6 +95,7 @@ is_date_yw_integerish <- function(x){
 
 
 
+
 is_scalar_date_yq_integerish <- function(x){
   identical(length(x), 1L) && unclass(x) %% 10L %in% 1:4 | is.na(x)
 }
@@ -156,6 +116,7 @@ is_scalar_date_yw_integerish <- function(x){
 
 
 
+
 which_date_xx <- function(
   x
 ){
@@ -168,3 +129,18 @@ which_date_xx <- function(
   dates[sel]
 }
 
+
+
+
+random_date_xx <- function(n, mode, replace = TRUE, years = 2010:2020){
+
+  if (identical(mode, "date_yq")){
+    x <-  seq(date_yq(min(years), 1), date_yq(max(years), 4))
+  } else if (identical(mode, "date_ym")){
+    x <-  seq(date_ym(min(years), 1), date_ym(max(years), 12))
+  } else if (identical(mode, "date_yw")){
+    x <- seq(date_yw(min(years), 1), as_date_yw(last_of_isoyear(max(years))))
+  }
+
+  sample(x, n, replace = replace)
+}

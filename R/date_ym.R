@@ -3,8 +3,8 @@
 #' A Simple S3-Class for Year-Month Dates
 #'
 #' A simple data type for storing year-month dates in a human readable integer
-#' format, e.g.: December 2012 is stored as 201212. Supports simple arithmetics
-#' (`+` and `-`) as well formatting.
+#' format, e.g.: December 2012 is stored as 201212. Supports simple
+#' arithmetic operations such as `+` and `-` as well formatting.
 #'
 #' @param y year
 #' @param m month (optional)
@@ -71,6 +71,21 @@ as_date_ym.date_ym <- function(x){
 #' @export
 as_date_ym.default <- function(x){
   as_date_ym.Date(as.Date(x))
+}
+
+
+
+#' @export
+as_date_ym.yearmon <- function(
+  x
+){
+  x <- yearmon(x)  # for the validity check
+  x <- as.numeric(x)
+  assert(all(x > 0 | is.na(x)))
+  tx  <- trunc(x)
+  rem <- x - tx
+  assert(all(round(rem, 5) %in% round(seq(0, 0.99, by = 1/12), 5) | is.na(rem) ))
+  date_ym(tx,  round((x - tx) * 12) + 1L )
 }
 
 

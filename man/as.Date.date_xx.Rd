@@ -5,6 +5,9 @@
 \alias{as.Date.date_xx}
 \alias{as.POSIXlt.date_xx}
 \alias{as.POSIXct.date_xx}
+\alias{Sys.date_yq}
+\alias{Sys.date_ym}
+\alias{Sys.date_yw}
 \alias{as.Date.date_y}
 \alias{as.Date.date_ym}
 \alias{as.Date.date_yq}
@@ -14,6 +17,12 @@
 \method{as.POSIXlt}{date_xx}(x, tz = "", ...)
 
 \method{as.POSIXct}{date_xx}(x, tz = "", ...)
+
+Sys.date_yq()
+
+Sys.date_ym()
+
+Sys.date_yw()
 
 \method{as.Date}{date_y}(x, ...)
 
@@ -26,10 +35,10 @@
 \arguments{
 \item{x}{any \R object}
 
-\item{tz}{time zone specification to be used for the conversion,
+\item{tz}{A time zone specification to be used for the conversion,
     \emph{if one is required}.  System-specific (see \link{time zones}),
     but \code{""} is the current time zone, and \code{"GMT"} is UTC
-    (Universal Time, Coordinated).  Invalid values are most commonly
+    (Universal Time, Coordinated). Invalid values are most commonly
     treated as UTC, on some platforms with a warning.}
 
 \item{...}{passed on to methods}
