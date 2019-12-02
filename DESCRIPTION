@@ -1,7 +1,7 @@
 Type: Package
 Package: dint
 Title: A Toolkit for Year-Quarter, Year-Month and Year-Isoweek Dates
-Version: 2.1.0
+Version: 2.1.1
 Authors@R: 
     person(given = "Stefan",
            family = "Fleck",
@@ -22,14 +22,14 @@ Suggests: covr, ggplot2, knitr, lubridate, rmarkdown, scales, testthat,
 VignetteBuilder: knitr
 Encoding: UTF-8
 LazyData: true
-RoxygenNote: 6.1.1
+RoxygenNote: 7.0.1.9000
 Collate: 'accessors.R' 'arithmetic.R' 'date_xx.R' 'date_y.R'
         'date_ym.R' 'date_yq.R' 'date_yw.R' 'dint-package.R'
-        'extract.r' 'first_of.R' 'format.R' 'increment.R'
+        'extract.r' 'first_of.R' 'format.R' 'increment.R' 'parser.R'
         'predicates.R' 'utils-sfmisc.R' 'zoo-compat.R'
         'scale_date_xx.R' 'seq.R' 'utils.R'
 NeedsCompilation: no
-Packaged: 2019-01-03 13:04:36 UTC; fleck
+Packaged: 2019-12-02 16:05:51 UTC; hoelk
 Author: Stefan Fleck [aut, cre] (<https://orcid.org/0000-0003-3344-9851>)
 Repository: CRAN
-Date/Publication: 2019-01-03 13:20:03 UTC
+Date/Publication: 2019-12-02 16:40:02 UTC

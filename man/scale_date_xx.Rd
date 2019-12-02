@@ -10,23 +10,53 @@
 \alias{scale_y_date_yw}
 \title{ggplot2 Scales For date_xx Objects}
 \usage{
-scale_x_date_yq(name = "Quarter", breaks = date_yq_breaks(),
-  labels = ggplot2::waiver(), limits = NULL, position = "bottom")
+scale_x_date_yq(
+  name = "Quarter",
+  breaks = date_yq_breaks(),
+  labels = ggplot2::waiver(),
+  limits = NULL,
+  position = "bottom"
+)
 
-scale_y_date_yq(name = "Quarter", breaks = date_yq_breaks(),
-  labels = ggplot2::waiver(), limits = NULL, position = "left")
+scale_y_date_yq(
+  name = "Quarter",
+  breaks = date_yq_breaks(),
+  labels = ggplot2::waiver(),
+  limits = NULL,
+  position = "left"
+)
 
-scale_x_date_ym(name = "Month", breaks = date_ym_breaks(),
-  labels = ggplot2::waiver(), limits = NULL, position = "bottom")
+scale_x_date_ym(
+  name = "Month",
+  breaks = date_ym_breaks(),
+  labels = ggplot2::waiver(),
+  limits = NULL,
+  position = "bottom"
+)
 
-scale_y_date_ym(name = "Month", breaks = date_ym_breaks(),
-  labels = ggplot2::waiver(), limits = NULL, position = "left")
+scale_y_date_ym(
+  name = "Month",
+  breaks = date_ym_breaks(),
+  labels = ggplot2::waiver(),
+  limits = NULL,
+  position = "left"
+)
 
-scale_x_date_yw(name = "Week", breaks = date_yw_breaks(),
-  labels = ggplot2::waiver(), limits = NULL, position = "bottom")
+scale_x_date_yw(
+  name = "Week",
+  breaks = date_yw_breaks(),
+  labels = ggplot2::waiver(),
+  limits = NULL,
+  position = "bottom"
+)
 
-scale_y_date_yw(name = "Week", breaks = date_yw_breaks(),
-  labels = ggplot2::waiver(), limits = NULL, position = "left")
+scale_y_date_yw(
+  name = "Week",
+  breaks = date_yw_breaks(),
+  labels = ggplot2::waiver(),
+  limits = NULL,
+  position = "left"
+)
 }
 \arguments{
 \item{name}{The name of the scale. Used as the axis or legend title. If
@@ -52,14 +82,20 @@ it's a good idea to specify manual breaks if you use manual labels)
 \item A function that takes the breaks as input and returns labels as output
 }}
 
-\item{limits}{A numeric vector of length two providing limits of the scale.
-Use \code{NA} to refer to the existing minimum or maximum.}
+\item{limits}{One of:
+\itemize{
+\item \code{NULL} to use the default scale range
+\item A numeric vector of length two providing limits of the scale.
+Use \code{NA} to refer to the existing minimum or maximum
+\item A function that accepts the existing (automatic) limits and returns
+new limits
+}}
 
 \item{position}{The position of the axis. "left" or "right" for vertical
 scales, "top" or "bottom" for horizontal scales}
 }
 \description{
-The \code{scale_*_date_**} functions provide nice defaults for plotting
+The \verb{scale_*_date_**} functions provide nice defaults for plotting
 the appropriate \link{date_xx} subclass, but come with a limited number of
 configuration options. If you require more finetuning, you can convert
 \link{date_xx} vectors with \code{\link[=as.Date]{as.Date()}} and use \code{\link[ggplot2:scale_x_date]{ggplot2::scale_x_date()}}.

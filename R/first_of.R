@@ -146,8 +146,12 @@ last_of_quarter <- function(x){
 #' @rdname day_of_quarter
 #' @export
 last_of_quarter.default <- function(x){
-  assert_namespace("lubridate")
-  lubridate::ceiling_date(as.Date(x), "quarter") - 1L
+  last_of_month(
+  make_date(
+    get_year(x),
+    c(3, 6, 9, 12)[quarter_from_month(get_month(x))],
+    1
+  ))
 }
 
 
@@ -215,7 +219,7 @@ last_of_month.default <- function(x){
 
 
 # isoweek -----------------------------------------------------------------
-#TODO: deal with 53/52 week years?
+
 
 
 
