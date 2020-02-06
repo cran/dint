@@ -85,7 +85,7 @@ month(q)
 ## -----------------------------------------------------------------------------
 q <- date_yq(2015, 1)
 first_of_quarter(q)  # the same as as.Date(q), but more explicit
-last_of_quarter(q)  # the same as as.Date(q), but more explicit
+last_of_quarter(q) 
 
 ## -----------------------------------------------------------------------------
 d <- as.Date("2018-05-12")

@@ -1,3 +1,10 @@
+# dint 2.1.3
+
+* Correct a small error in the documentation of `date_xx_arithmetic` that
+  triggers a CRAN Warning since the fixing of 
+  https://bugs.r-project.org/bugzilla/show_bug.cgi?id=16223>
+
+
 # dint 2.1.2
 
 * Updated all `scale_date_*()` functions for compatibility with ggplot2 >= 3.2.2
