@@ -126,7 +126,7 @@ format_yw(Sys.Date())
 ## -----------------------------------------------------------------------------
 library(ggplot2)
 
-## ---- collapse=TRUE, fig.show='hold'------------------------------------------
+## ----collapse=TRUE, fig.show='hold'-------------------------------------------
 q <- data.frame(
   time  = seq(date_yq(2016, 1), date_yq(2016, 4)),
   value = rnorm(4)
@@ -161,7 +161,7 @@ ggplot(w, aes(x = time, y = value))  +
 ggplot(w2, aes(x = time, y = value)) + 
   geom_smooth() 
 
-## ---- collapse=TRUE, fig.show='hold'------------------------------------------
+## ----collapse=TRUE, fig.show='hold'-------------------------------------------
 x <- data.frame(
   time  = seq(as.Date("2016-01-01"), as.Date("2016-08-08"), by = "day"),
   value = rnorm(221)
